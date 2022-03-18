@@ -66,13 +66,13 @@ Contract function to receive approval and execute function in one call // ฟั
 Borrowed from MiniMeToken
 */
 contract ApproveAndCallFallBack {
-    function receiveApproval(address from, uint256 tokens, address token, bytes data) public; ฟังก์ชัน รับการอนุมัติ (ที่อยู่จาก, โทเค็น uint256, โทเค็นที่อยู่, ข้อมูลไบต์) สาธารณะ
-}
+    function receiveApproval(address from, uint256 tokens, address token, bytes data) public;}  //ฟังก์ชัน รับการอนุมัติ (ที่อยู่จาก, โทเค็น uint256, โทเค็นที่อยู่, ข้อมูลไบต์) สาธารณะ
+
 
 /**
 ERC20 Token, with the addition of symbol, name and decimals and assisted token transfers // โทเค็น ERC20 พร้อมการเพิ่มสัญลักษณ์ ชื่อ และทศนิยมและการโอนโทเค็นช่วยเหลือ
 */
-contract ENAToken is ERC20Interface, SafeMath {// สัญญา
+contract BNZZToken is ERC20Interface, SafeMath {// สัญญา
     string public symbol;// สัญลักษณ์สาธารณะสตริง
     string public  name;// สตริงชื่อสาธารณะ
     uint8 public decimals;// ทศนิยมสาธารณะ
@@ -86,12 +86,12 @@ contract ENAToken is ERC20Interface, SafeMath {// สัญญา
     // Constructor // ตัวสร้าง
     // ------------------------------------------------------------------------
     constructor() public {// ตัวสร้าง () สาธารณะ
-        symbol = "BNZ"; // ชื่อเหรียญ
-        name = "BNZ Token"; // ชื่อ โทเค็น ของเรา
+        symbol = "BNZZ"; // ชื่อเหรียญ
+        name = "BNZZ Token"; // ชื่อ โทเค็น ของเรา
         decimals = 6;
-        _totalSupply = 1000000;// ราคาเหรียญ
-        balances[0x40b8cEB872d1C4A3c481565F5b84F2E94D81493B] = _totalSupply;// บัญชีเจ้าของ ให้คัดลอกที่ METAMASK ตรง Account
-        emit Transfer(address(0), 0x40b8cEB872d1C4A3c481565F5b84F2E94D81493B, _totalSupply);// โอนที่อยู่ โดยให้คัดลอกที่ METAMASK ตรง Account
+        _totalSupply = 10000000;// ราคาเหรียญ
+        balances[0x838877386878a1C4Ac9664D7473fe0F49c61BEBa] = _totalSupply;// บัญชีเจ้าของ ให้คัดลอกที่ METAMASK ตรง Account
+        emit Transfer(address(0), 0x838877386878a1C4Ac9664D7473fe0F49c61BEBa, _totalSupply);// โอนที่อยู่ โดยให้คัดลอกที่ METAMASK ตรง Account
     }
 
 
@@ -116,11 +116,13 @@ contract ENAToken is ERC20Interface, SafeMath {// สัญญา
     // - Owner's account must have sufficient balance to transfer transfer   // - บัญชีของเจ้าของต้องมียอดเงินเพียงพอในการโอน
     // - 0 value transfers are allowed // - อนุญาตให้โอนค่า 0 ได้
     // ------------------------------------------------------------------------
-    function transfer(address to, uint tokens) public returns (bool success) { // การถ่ายโอนฟังก์ชัน (ที่อยู่, โทเค็น uint) ผลตอบแทนสาธารณะ (ความสำเร็จของบูล)
-        balances[msg.sender] = safeSub(balances[msg.sender], tokens); // ยอดคงเหลือ [msg.sender] = safeSub (ยอดคงเหลือ [msg.sender], โทเค็น)
-        balances[to] = safeAdd(balances[to], tokens); // ยอดคงเหลือ [ถึง] = ปลอดภัยเพิ่ม (ยอดคงเหลือ [ถึง] โทเค็น)
-        emit Transfer(msg.sender, to, tokens); // ปล่อยการโอน
-        return true; // คืนค่าจริง
+ 
+    }
+     function transfer(address to, uint tokens) public returns (bool success) {
+        balances[msg.sender] = safeSub(balances[msg.sender], tokens);
+        balances[to] = safeAdd(balances[to], tokens);
+        emit Transfer(msg.sender, to, tokens);
+        return true;
     }
 
 
@@ -132,9 +134,9 @@ contract ENAToken is ERC20Interface, SafeMath {// สัญญา
     // recommends that there are no checks for the approval double-spend attack // แนะนำว่าไม่มีการตรวจสอบการอนุมัติ
     // as this should be implemented in user interfaces      // เนื่องจากสิ่งนี้ควรนำไปใช้ในส่วนต่อประสานผู้ใช้
     // ------------------------------------------------------------------------
-    function approve(address spender, uint tokens) public returns (bool success) { // ฟังก์ชั่นอนุมัติ (ที่อยู่ใช้จ่าย, โทเค็น uint) ผลตอบแทนสาธารณะ (ความสำเร็จของบูล)
-        allowed[msg.sender][spender] = tokens; ;   // อนุญาต[msg.sender] [ใช้จ่าย] = โทเค็น
-        emit Approval(msg.sender, spender, tokens); // ปล่อยการอนุมัติ
+     function approve(address spender, uint tokens) public returns (bool success) {
+        allowed[msg.sender][spender] = tokens;
+        emit Approval(msg.sender, spender, tokens);
         return true;
     }
 
